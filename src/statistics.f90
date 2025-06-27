@@ -51,5 +51,20 @@ contains
     
   end function jackknife
 
+  function jackknife_max(x)
+    real(dp) :: jackknife_max(2)
+    real(dp), intent(in) :: x(:)
+    
+    integer(i4) :: i
+    real(dp) :: err(size(x))
+
+    err = 0
+    do i = 2, size(x)
+       if( mod(size(x),i) /= 0) cycle
+       err(i) = jackknife(x,i) 
+    end do
+    jackknife_max(1) = maxval(err)
+    jackknife_max(2) = maxloc(err,dim=1)
+  end function jackknife_max
   
 end module statistics

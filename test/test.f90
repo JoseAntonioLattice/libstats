@@ -8,6 +8,6 @@ program test
 
   call random_number(r)
 
-  print*, avr(r), std_err(r),jackknife(r,20)
+  print*, avr(r), std_err(r),jackknife(r,20), jackknife_max(r)
 
 end program test
