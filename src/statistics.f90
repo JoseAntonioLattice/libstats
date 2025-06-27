@@ -30,5 +30,26 @@ contains
 
   end function std_err
 
+  function jackknife(x,bins)
+    real(dp) :: jackknife
+    real(dp), intent(in) :: x(:)
+    integer(i4), intent(in) :: bins
 
+    integer(i4) :: MM, NN, i
+    real(dp) :: xbar, sum_x
+    real(dp) :: x_m(bins)
+    
+    
+    NN = size(x)
+    MM = NN/bins
+    
+    xbar = avr(x)
+    sum_x = sum(x)
+    x_m = 1.0_dp/(NN-MM) * [(sum_x - sum(x(MM*(i-1)+1:MM*i)),i=1,bins)]
+
+    jackknife = sqrt( real(bins - 1,dp)/bins * sum( (x_m - xbar)**2) )
+    
+  end function jackknife
+
+  
 end module statistics
