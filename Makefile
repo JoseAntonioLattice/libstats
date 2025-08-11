@@ -16,10 +16,10 @@ INC = $(HOME)/Fortran/include
 
 all : install $(LIB)/lib$(libname).so
 
-$(LIB)/lib$(libname).so.$(version): $(OBJECTS)
+$(LIB)/lib$(libname).so.$(version): $(OBJDIR)/statistics.o $(OBJECTS)
 	$(FC) -shared -o $@ $^   
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.f90 $(OBJDIR)
+$(OBJDIR)/statistics.o: $(SRCDIR)/statistics.f90 $(OBJDIR)
 	$(FC) -O3 -fpic -c -J $(INC) $< -o $@
 
 $(LIB)/lib$(libname).so.$(major) : $(LIB)/lib$(libname).so.$(version)
